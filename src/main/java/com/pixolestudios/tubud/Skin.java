@@ -1,19 +1,22 @@
 package main.java.com.pixolestudios.tubud;
 
+import java.util.HashMap;
+
 public abstract class Skin {
 
     private String name;
     private float minFloat, maxFloat;
     private WeaponCollection collection;
     private Grade grade;
+    private HashMap<Condition, Float> valueMap = new HashMap<>();
 
-
-    public Skin(String name, float minFloat, float maxFloat, WeaponCollection collection, Grade grade){
+    public Skin(String name, float minFloat, float maxFloat, WeaponCollection collection, Grade grade, HashMap<Condition, Float> valueMap){
         this.name = name;
         this.minFloat = minFloat;
         this.maxFloat = maxFloat;
         this.collection = collection;
         this.grade = grade;
+        this.valueMap = valueMap;
     }
 
     public Skin(Skin skin) {
@@ -22,6 +25,7 @@ public abstract class Skin {
         maxFloat = skin.maxFloat;
         collection = skin.collection;
         grade = skin.grade;
+        valueMap = skin.valueMap;
     }
 
     public String toString(){
