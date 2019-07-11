@@ -1,9 +1,9 @@
 package main.java.com.pixolestudios.skins;
 
-import main.java.com.pixolestudios.tubud.Condition;
-import main.java.com.pixolestudios.tubud.Grade;
-import main.java.com.pixolestudios.tubud.Skin;
-import main.java.com.pixolestudios.tubud.WeaponCollection;
+import main.java.com.pixolestudios.skinUtils.Condition;
+import main.java.com.pixolestudios.skinUtils.Grade;
+import main.java.com.pixolestudios.skinUtils.Skin;
+import main.java.com.pixolestudios.skinUtils.WeaponCollection;
 
 import java.util.HashMap;
 

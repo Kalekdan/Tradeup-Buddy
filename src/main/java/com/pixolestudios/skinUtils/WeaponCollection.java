@@ -1,4 +1,4 @@
-package main.java.com.pixolestudios.tubud;
+package main.java.com.pixolestudios.skinUtils;
 
 public enum WeaponCollection {
     OVERPASS,

@@ -1,4 +1,4 @@
-package main.java.com.pixolestudios.tubud;
+package main.java.com.pixolestudios.skinUtils;
 
 import java.util.HashMap;
 
@@ -30,5 +30,9 @@ public abstract class Skin {
 
     public String toString(){
         return name;
+    }
+
+    public Grade getGrade(){
+        return grade;
     }
 }
