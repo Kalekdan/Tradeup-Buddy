@@ -1,6 +1,6 @@
 package main.java.com.pixolestudios.skinUtils;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 
 public abstract class Skin {
 
@@ -8,9 +8,9 @@ public abstract class Skin {
     private float minFloat, maxFloat;
     private WeaponCollection collection;
     private Grade grade;
-    private HashMap<Condition, Float> valueMap = new HashMap<>();
+    private EnumMap<Condition, Float> valueMap;
 
-    public Skin(String name, float minFloat, float maxFloat, WeaponCollection collection, Grade grade, HashMap<Condition, Float> valueMap){
+    public Skin(String name, float minFloat, float maxFloat, WeaponCollection collection, Grade grade, EnumMap<Condition, Float> valueMap){
         this.name = name;
         this.minFloat = minFloat;
         this.maxFloat = maxFloat;

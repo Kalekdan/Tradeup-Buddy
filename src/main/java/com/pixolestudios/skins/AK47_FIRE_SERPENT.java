@@ -5,7 +5,7 @@ import main.java.com.pixolestudios.skinUtils.Grade;
 import main.java.com.pixolestudios.skinUtils.Skin;
 import main.java.com.pixolestudios.skinUtils.WeaponCollection;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 
 public class AK47_FIRE_SERPENT extends Skin {
     // DATA FROM https://csgoitems.pro/en/skin/AK-47_%7C_Fire_Serpent
@@ -13,8 +13,8 @@ public class AK47_FIRE_SERPENT extends Skin {
         super("AK-47 Fire Serpent", 0.06f, 0.76f, WeaponCollection.BRAVO, Grade.COVERT, makeValueMap());
     }
 
-    private static HashMap<Condition, Float> makeValueMap() {
-        HashMap<Condition, Float> valMap = new HashMap<>();
+    private static EnumMap<Condition, Float> makeValueMap() {
+        EnumMap<Condition, Float> valMap = new EnumMap<>(Condition.class);
         valMap.put(Condition.FACTORY_NEW, 1133.64f);
         valMap.put(Condition.MINIMAL_WEAR, 407.14f);
         valMap.put(Condition.FIELD_TESTED, 278.89f);

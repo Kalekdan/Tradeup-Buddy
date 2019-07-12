@@ -5,7 +5,7 @@ import main.java.com.pixolestudios.skinUtils.Grade;
 import main.java.com.pixolestudios.skinUtils.Skin;
 import main.java.com.pixolestudios.skinUtils.WeaponCollection;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 
 public class Glock18_OFF_WORLD extends Skin {
     // DATA FROM https://csgoitems.pro/en/skin/Glock-18_%7C_Off_World
@@ -13,8 +13,8 @@ public class Glock18_OFF_WORLD extends Skin {
         super("Glock-18 Off World", 0f, 1f, WeaponCollection.SPECTRUM_2, Grade.MIL_SPEC, makeValueMap());
     }
 
-    private static HashMap<Condition, Float> makeValueMap() {
-        HashMap<Condition, Float> valMap = new HashMap<>();
+    private static EnumMap<Condition, Float> makeValueMap() {
+        EnumMap<Condition, Float> valMap = new EnumMap<>(Condition.class);
         valMap.put(Condition.FACTORY_NEW, 0.89f);
         valMap.put(Condition.MINIMAL_WEAR, 0.16f);
         valMap.put(Condition.FIELD_TESTED, 0.12f);

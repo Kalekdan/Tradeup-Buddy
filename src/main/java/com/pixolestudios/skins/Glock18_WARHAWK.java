@@ -5,7 +5,7 @@ import main.java.com.pixolestudios.skinUtils.Grade;
 import main.java.com.pixolestudios.skinUtils.Skin;
 import main.java.com.pixolestudios.skinUtils.WeaponCollection;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 
 public class Glock18_WARHAWK extends Skin {
     // DATA FROM https://csgoitems.pro/en/skin/Glock-18_%7C_Warhawk
@@ -13,8 +13,8 @@ public class Glock18_WARHAWK extends Skin {
         super("Glock-18 Warhawk", 0f, 1f, WeaponCollection.HORIZON, Grade.MIL_SPEC, makeValueMap());
     }
 
-    private static HashMap<Condition, Float> makeValueMap() {
-        HashMap<Condition, Float> valMap = new HashMap<>();
+    private static EnumMap<Condition, Float> makeValueMap() {
+        EnumMap<Condition, Float> valMap = new EnumMap<>(Condition.class);
         valMap.put(Condition.FACTORY_NEW, 0.95f);
         valMap.put(Condition.MINIMAL_WEAR, 0.24f);
         valMap.put(Condition.FIELD_TESTED, 0.11f);
