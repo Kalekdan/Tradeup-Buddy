@@ -10,7 +10,7 @@ import java.util.EnumMap;
 public class Glock18_WARHAWK extends Skin {
     // DATA FROM https://csgoitems.pro/en/skin/Glock-18_%7C_Warhawk
     public Glock18_WARHAWK() {
-        super("Glock-18 Warhawk", 0f, 1f, WeaponCollection.HORIZON, Grade.MIL_SPEC, makeValueMap());
+        super("Glock-18 Warhawk", 0f, 1f, WeaponCollection.HORIZON, Grade.MIL_SPEC, makeValueMap(), makeValueMap());
     }
 
     private static EnumMap<Condition, Float> makeValueMap() {

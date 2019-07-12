@@ -19,15 +19,12 @@ public class TradeupCalculator {
     float avgFloat;
     ArrayList<Skin> outputSkins = new ArrayList<Skin>();
 
-    ArrayList<Skin> allSkins = new ArrayList<Skin>();
-
     // collection, num occurences
     HashMap<WeaponCollection, Integer> inputCollections = new HashMap<>();
 
     public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumber, MixedGradeException, NoSkinsFoundException {
         checkValidInput(skins);
         DisplayInputs(skins);
-        makeSkinArray();
 
         outputGrade = Grade.nextGrade(skins[0].getGrade());
         avgFloat = calculateOutputFloat(skins);
@@ -86,18 +83,12 @@ public class TradeupCalculator {
     }
 
     private void calculateOutputSkins(InputSkin[] skins) {
-        for (Skin skin : allSkins) {
+        for (Skin skin : TradeupBuddy.skinDB) {
             if (inputCollections.containsKey(skin.getCollection()) && skin.getGrade() == outputGrade) {
                 if (!outputSkins.contains(skin)) {
                     outputSkins.add(skin);
                 }
             }
         }
-    }
-
-    private void makeSkinArray() { //TODO add all skins to this array
-        allSkins.add(new AK47_FIRE_SERPENT());
-        allSkins.add(new Glock18_OFF_WORLD());
-        allSkins.add(new Glock18_WARHAWK());
     }
 }
