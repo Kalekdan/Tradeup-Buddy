@@ -5,11 +5,13 @@ import main.java.com.pixolestudios.skinUtils.Condition;
 public class InputSkin extends Skin {
     private float floatValue;
     private Condition condition;
+    private float value;
 
     public InputSkin(Skin skin, float floatValue) {
         super(skin);
         this.floatValue = floatValue;
         condition = Condition.getCondition(floatValue);
+        value = getValue(condition);
     }
 
     public Condition getCondition() {
@@ -18,7 +20,7 @@ public class InputSkin extends Skin {
 
     @Override
     public String toString() {
-        return super.toString() + " - Condition: " + condition + " - Float: " + floatValue;
+        return super.toString() + " - Condition: " + condition + " - Float: " + floatValue + " - ~$" + value;
     }
 
     public float getFloatValue() {
