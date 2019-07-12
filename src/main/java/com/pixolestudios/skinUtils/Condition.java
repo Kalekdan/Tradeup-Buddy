@@ -1,5 +1,6 @@
 package main.java.com.pixolestudios.skinUtils;
 
+@SuppressWarnings("MagicNumber")
 public enum Condition {
     FACTORY_NEW,
     MINIMAL_WEAR,

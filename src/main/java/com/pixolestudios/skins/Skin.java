@@ -1,11 +1,16 @@
-package main.java.com.pixolestudios.skinUtils;
+package main.java.com.pixolestudios.skins;
+
+import main.java.com.pixolestudios.skinUtils.Condition;
+import main.java.com.pixolestudios.skinUtils.Grade;
+import main.java.com.pixolestudios.skinUtils.WeaponCollection;
 
 import java.util.EnumMap;
 
 public abstract class Skin {
 
     private String name;
-    private float minFloat, maxFloat;
+    private float minFloat;
+    private float maxFloat;
     private WeaponCollection collection;
     private Grade grade;
     private EnumMap<Condition, Float> valueMap;
@@ -28,6 +33,7 @@ public abstract class Skin {
         collection = skin.collection;
         grade = skin.grade;
         valueMap = skin.valueMap;
+        valueMap_st = skin.valueMap_st;
     }
 
     public float getOutputFloat(float avgFloat) {

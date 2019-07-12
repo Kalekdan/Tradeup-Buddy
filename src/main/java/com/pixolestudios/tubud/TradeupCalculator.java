@@ -1,12 +1,13 @@
 package main.java.com.pixolestudios.tubud;
 
-import main.java.com.pixolestudios.exceptions.IncorrectInputNumber;
+import main.java.com.pixolestudios.exceptions.IncorrectInputNumberException;
 import main.java.com.pixolestudios.exceptions.MixedGradeException;
 import main.java.com.pixolestudios.exceptions.NoSkinsFoundException;
 import main.java.com.pixolestudios.skinUtils.Condition;
 import main.java.com.pixolestudios.skinUtils.Grade;
-import main.java.com.pixolestudios.skinUtils.Skin;
 import main.java.com.pixolestudios.skinUtils.WeaponCollection;
+import main.java.com.pixolestudios.skins.InputSkin;
+import main.java.com.pixolestudios.skins.Skin;
 import main.java.com.pixolestudios.skins.SkinDBItem;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class TradeupCalculator {
     // collection, num occurences
     HashMap<WeaponCollection, Integer> inputCollections = new HashMap<>();
 
-    public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumber, MixedGradeException, NoSkinsFoundException {
+    public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException {
         checkValidInput(skins);
         DisplayInputs(skins);
 
@@ -51,9 +52,9 @@ public class TradeupCalculator {
         }
     }
 
-    private void checkValidInput(InputSkin[] skins) throws IncorrectInputNumber, MixedGradeException {
+    private void checkValidInput(InputSkin[] skins) throws IncorrectInputNumberException, MixedGradeException {
         if (skins.length != 10) {
-            throw new IncorrectInputNumber(skins.length);
+            throw new IncorrectInputNumberException(skins.length);
         }
         Grade grade = skins[0].getGrade();
         for (InputSkin skin : skins) {
@@ -82,7 +83,7 @@ public class TradeupCalculator {
     }
 
     private void calculateOutputSkins(InputSkin[] skins) {
-        for (Map.Entry<String, SkinDBItem> skin : TradeupBuddy.skinDB.entrySet()) {
+        for (Map.Entry<String, SkinDBItem> skin : TradeupBuddy.getSkinDB().entrySet()) {
             if (inputCollections.containsKey(skin.getValue().getCollection()) && skin.getValue().getGrade() == outputGrade) {
                 if (!outputSkins.contains(skin)) {
                     outputSkins.add(skin.getValue());

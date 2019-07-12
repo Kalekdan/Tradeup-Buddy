@@ -2424,7 +2424,7 @@
     <inspection_tool class="ReuseOfLocalVariableJS" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="RuntimeExec" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="RuntimeExecWithNonConstantString" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="SSBasedInspection" enabled="true" level="ERROR" enabled_by_default="true">
+    <inspection_tool class="SSBasedInspection" enabled="false" level="ERROR" enabled_by_default="false">
       <replaceConfiguration name="Invalid use of ByteArrayOutputStream.toString()" text="$Ins$.$method$()" recursive="false" caseInsensitive="false" type="JAVA" reformatAccordingToStyle="true" shortenFQN="true" replacement="ByteArrayOutputStreamUtils.toString($Ins$)">
         <constraint name="Instance" minCount="0" within="" contains="" />
         <constraint name="Class" withinHierarchy="true" within="" contains="" />

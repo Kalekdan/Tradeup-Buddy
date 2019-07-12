@@ -1,7 +1,6 @@
-package main.java.com.pixolestudios.tubud;
+package main.java.com.pixolestudios.skins;
 
 import main.java.com.pixolestudios.skinUtils.Condition;
-import main.java.com.pixolestudios.skinUtils.Skin;
 
 public class InputSkin extends Skin {
     private float floatValue;

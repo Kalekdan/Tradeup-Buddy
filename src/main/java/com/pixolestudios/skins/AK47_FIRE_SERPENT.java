@@ -2,7 +2,6 @@ package main.java.com.pixolestudios.skins;
 
 import main.java.com.pixolestudios.skinUtils.Condition;
 import main.java.com.pixolestudios.skinUtils.Grade;
-import main.java.com.pixolestudios.skinUtils.Skin;
 import main.java.com.pixolestudios.skinUtils.WeaponCollection;
 
 import java.util.EnumMap;
