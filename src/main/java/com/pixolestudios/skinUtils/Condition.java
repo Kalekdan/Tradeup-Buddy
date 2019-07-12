@@ -7,17 +7,17 @@ public enum Condition {
     WELL_WORN,
     BATTLE_SCARRED;
 
-    public static Condition getCondition(float floatValue){    //TODO: get actual values for condition floats
-        if (floatValue <= 0.06){
+    public static Condition getCondition(float floatValue){
+        if (floatValue <= 0.07){
             return FACTORY_NEW;
         }
-        if (floatValue <= 0.1f){
+        if (floatValue <= 0.15f){
             return MINIMAL_WEAR;
         }
-        if (floatValue <= 0.4){
+        if (floatValue <= 0.37){
             return FIELD_TESTED;
         }
-        if (floatValue <= 0.6){
+        if (floatValue <= 0.44){
             return WELL_WORN;
         }
         return BATTLE_SCARRED;
