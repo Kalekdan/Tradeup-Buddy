@@ -21,6 +21,7 @@ public class TradeupCalculator {
 
     // collection, num occurences
     HashMap<WeaponCollection, Integer> inputCollections = new HashMap<>();
+    private float sumOfCollections = 0;
 
     public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException {
         checkValidInput(skins);
@@ -48,8 +49,12 @@ public class TradeupCalculator {
         for (Skin skin : outputSkins) {
             float outFloat = skin.getOutputFloat(avgFloat);
             Condition condition = Condition.getCondition(outFloat);
-            System.out.println(skin.getName() + " " + outFloat + " - " + condition + " ~$" + skin.getValue(condition));
+            System.out.println(skin.getName() + " " + outFloat + " - " + condition + " ~$" + skin.getValue(condition) + " - Chance = " + CalculateProbability(skin) * 100 + "%");
         }
+    }
+
+    private float CalculateProbability(Skin skin) {
+        return inputCollections.get(skin.getCollection()) / (sumOfCollections * inputCollections.size());
     }
 
     private void checkValidInput(InputSkin[] skins) throws IncorrectInputNumberException, MixedGradeException {
@@ -79,6 +84,7 @@ public class TradeupCalculator {
             } else {
                 inputCollections.put(skin.getCollection(), 1);
             }
+            sumOfCollections ++;
         }
     }
 
