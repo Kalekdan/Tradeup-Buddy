@@ -9,17 +9,19 @@ public abstract class Skin {
     private WeaponCollection collection;
     private Grade grade;
     private EnumMap<Condition, Float> valueMap;
+    private EnumMap<Condition, Float> valueMap_st;
 
-    public Skin(String name, float minFloat, float maxFloat, WeaponCollection collection, Grade grade, EnumMap<Condition, Float> valueMap) {
+    protected Skin(String name, float minFloat, float maxFloat, WeaponCollection collection, Grade grade, EnumMap<Condition, Float> valueMap, EnumMap<Condition, Float> valueMap_st) {
         this.name = name;
         this.minFloat = minFloat;
         this.maxFloat = maxFloat;
         this.collection = collection;
         this.grade = grade;
         this.valueMap = valueMap;
+        this.valueMap_st = valueMap_st;
     }
 
-    public Skin(Skin skin) {
+    protected Skin(Skin skin) {
         name = skin.name;
         minFloat = skin.minFloat;
         maxFloat = skin.maxFloat;
@@ -55,5 +57,9 @@ public abstract class Skin {
 
     public String getName() {
         return name;
+    }
+
+    public float getValue(Condition condition){
+        return valueMap.get(condition);
     }
 }

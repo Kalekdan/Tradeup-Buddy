@@ -49,7 +49,9 @@ public class TradeupCalculator {
             throw new NoSkinsFoundException();
         }
         for (Skin skin: outputSkins) {
-            System.out.println(skin.getName() + " " + skin.getOutputFloat(avgFloat) + " - " + Condition.getCondition(skin.getOutputFloat(avgFloat)));
+            float outFloat = skin.getOutputFloat(avgFloat);
+            Condition condition = Condition.getCondition(outFloat);
+            System.out.println(skin.getName() + " " + outFloat + " - " + condition + " ~$" + skin.getValue(condition));
         }
     }
 
