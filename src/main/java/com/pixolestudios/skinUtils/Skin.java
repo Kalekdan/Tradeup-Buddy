@@ -52,4 +52,8 @@ public abstract class Skin {
     public Grade getGrade() {
         return grade;
     }
+
+    public String getName() {
+        return name;
+    }
 }
