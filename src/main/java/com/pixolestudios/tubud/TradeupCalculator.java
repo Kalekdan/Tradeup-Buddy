@@ -15,12 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TradeupCalculator {
-    Grade outputGrade;
-    float avgFloat;
-    ArrayList<Skin> outputSkins = new ArrayList<Skin>();
+    private Grade outputGrade;
+    private float avgFloat;
+    private ArrayList<Skin> outputSkins = new ArrayList<Skin>();
 
     // collection, num occurences
-    HashMap<WeaponCollection, Integer> inputCollections = new HashMap<>();
+    private HashMap<WeaponCollection, Integer> inputCollections = new HashMap<>();
     private float sumOfCollections = 0;
 
     public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException {
@@ -84,7 +84,7 @@ public class TradeupCalculator {
             } else {
                 inputCollections.put(skin.getCollection(), 1);
             }
-            sumOfCollections ++;
+            sumOfCollections++;
         }
     }
 
