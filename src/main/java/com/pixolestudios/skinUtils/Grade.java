@@ -6,7 +6,8 @@ public enum Grade {
     RESTRICTED,
     MIL_SPEC,
     INDUSTRIAL,
-    CONSUMER;
+    CONSUMER,
+    CONTRABAND;
 
     public static Grade nextGrade(Grade inputGrade) {
         if (inputGrade == CONSUMER) {

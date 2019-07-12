@@ -42,7 +42,7 @@ public class TradeupCalculator {
 
     private void DisplayOutputs() throws NoSkinsFoundException {
         System.out.println("\nAverage input float = " + avgFloat + " - " + Condition.getCondition(avgFloat));
-        if (outputSkins.size() == 0) {
+        if (outputSkins.isEmpty()) {
             throw new NoSkinsFoundException();
         }
         for (Skin skin : outputSkins) {
