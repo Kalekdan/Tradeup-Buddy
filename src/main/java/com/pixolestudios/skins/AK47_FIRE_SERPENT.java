@@ -7,7 +7,7 @@ import main.java.com.pixolestudios.skinUtils.WeaponCollection;
 
 import java.util.EnumMap;
 
-public class AK47_FIRE_SERPENT extends Skin {
+public class AK47_FIRE_SERPENT extends Skin { //TODO delete this class once data is in db
     // DATA FROM https://csgoitems.pro/en/skin/AK-47_%7C_Fire_Serpent
     public AK47_FIRE_SERPENT() {
         super("AK-47 Fire Serpent", 0.06f, 0.76f, WeaponCollection.BRAVO, Grade.COVERT, makeValueMap(), makeValueMap());

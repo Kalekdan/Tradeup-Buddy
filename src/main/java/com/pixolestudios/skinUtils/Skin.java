@@ -59,7 +59,7 @@ public abstract class Skin {
         return name;
     }
 
-    public float getValue(Condition condition){
+    public float getValue(Condition condition) {
         return valueMap.get(condition);
     }
 }

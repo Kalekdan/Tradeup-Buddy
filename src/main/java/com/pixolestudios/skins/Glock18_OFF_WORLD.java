@@ -7,7 +7,7 @@ import main.java.com.pixolestudios.skinUtils.WeaponCollection;
 
 import java.util.EnumMap;
 
-public class Glock18_OFF_WORLD extends Skin {
+public class Glock18_OFF_WORLD extends Skin { //TODO delete this class once data is in db
     // DATA FROM https://csgoitems.pro/en/skin/Glock-18_%7C_Off_World
     public Glock18_OFF_WORLD() {
         super("Glock-18 Off World", 0f, 1f, WeaponCollection.SPECTRUM_2, Grade.MIL_SPEC, makeValueMap(), makeValueMap());

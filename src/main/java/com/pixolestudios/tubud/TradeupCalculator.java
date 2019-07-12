@@ -7,12 +7,11 @@ import main.java.com.pixolestudios.skinUtils.Condition;
 import main.java.com.pixolestudios.skinUtils.Grade;
 import main.java.com.pixolestudios.skinUtils.Skin;
 import main.java.com.pixolestudios.skinUtils.WeaponCollection;
-import main.java.com.pixolestudios.skins.AK47_FIRE_SERPENT;
-import main.java.com.pixolestudios.skins.Glock18_OFF_WORLD;
-import main.java.com.pixolestudios.skins.Glock18_WARHAWK;
+import main.java.com.pixolestudios.skins.SkinDBItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class TradeupCalculator {
     Grade outputGrade;
@@ -35,17 +34,17 @@ public class TradeupCalculator {
     }
 
     private void DisplayInputs(InputSkin[] skins) {
-        for (InputSkin skin: skins) {
+        for (InputSkin skin : skins) {
             System.out.println(skin.getName() + " " + skin.getFloatValue() + " - " + skin.getCondition());
         }
     }
 
     private void DisplayOutputs() throws NoSkinsFoundException {
         System.out.println("\nAverage input float = " + avgFloat + " - " + Condition.getCondition(avgFloat));
-        if (outputSkins.size() == 0){
+        if (outputSkins.size() == 0) {
             throw new NoSkinsFoundException();
         }
-        for (Skin skin: outputSkins) {
+        for (Skin skin : outputSkins) {
             float outFloat = skin.getOutputFloat(avgFloat);
             Condition condition = Condition.getCondition(outFloat);
             System.out.println(skin.getName() + " " + outFloat + " - " + condition + " ~$" + skin.getValue(condition));
@@ -83,10 +82,10 @@ public class TradeupCalculator {
     }
 
     private void calculateOutputSkins(InputSkin[] skins) {
-        for (Skin skin : TradeupBuddy.skinDB) {
-            if (inputCollections.containsKey(skin.getCollection()) && skin.getGrade() == outputGrade) {
+        for (Map.Entry<String, SkinDBItem> skin : TradeupBuddy.skinDB.entrySet()) {
+            if (inputCollections.containsKey(skin.getValue().getCollection()) && skin.getValue().getGrade() == outputGrade) {
                 if (!outputSkins.contains(skin)) {
-                    outputSkins.add(skin);
+                    outputSkins.add(skin.getValue());
                 }
             }
         }

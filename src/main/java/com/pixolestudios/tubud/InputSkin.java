@@ -13,7 +13,7 @@ public class InputSkin extends Skin {
         condition = Condition.getCondition(floatValue);
     }
 
-    public Condition getCondition(){
+    public Condition getCondition() {
         return condition;
     }
 
