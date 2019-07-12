@@ -10,7 +10,7 @@ public abstract class Skin {
     private Grade grade;
     private EnumMap<Condition, Float> valueMap;
 
-    public Skin(String name, float minFloat, float maxFloat, WeaponCollection collection, Grade grade, EnumMap<Condition, Float> valueMap){
+    public Skin(String name, float minFloat, float maxFloat, WeaponCollection collection, Grade grade, EnumMap<Condition, Float> valueMap) {
         this.name = name;
         this.minFloat = minFloat;
         this.maxFloat = maxFloat;
@@ -28,11 +28,28 @@ public abstract class Skin {
         valueMap = skin.valueMap;
     }
 
-    public String toString(){
+    public float getOutputFloat(float avgFloat) {
+        return (avgFloat * (maxFloat - minFloat)) + minFloat;
+    }
+
+    public float getOutputFloat(float... inputFloats) {
+        float avgFloat = 0;
+        for (float inFloat : inputFloats) {
+            avgFloat += inFloat;
+        }
+        avgFloat /= 10;
+        return getOutputFloat(avgFloat);
+    }
+
+    public WeaponCollection getCollection() {
+        return collection;
+    }
+
+    public String toString() {
         return name;
     }
 
-    public Grade getGrade(){
+    public Grade getGrade() {
         return grade;
     }
 }

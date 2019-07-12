@@ -7,4 +7,23 @@ public enum Grade {
     MIL_SPEC,
     INDUSTRIAL,
     CONSUMER;
+
+    public static Grade nextGrade(Grade inputGrade) {
+        if (inputGrade == CONSUMER) {
+            return INDUSTRIAL;
+        }
+        if (inputGrade == INDUSTRIAL) {
+            return MIL_SPEC;
+        }
+        if (inputGrade == MIL_SPEC) {
+            return RESTRICTED;
+        }
+        if (inputGrade == RESTRICTED) {
+            return CLASSIFIED;
+        }
+        if (inputGrade == CLASSIFIED) {
+            return COVERT;
+        }
+        return null; //TODO may want to throw an error instead
+    }
 }

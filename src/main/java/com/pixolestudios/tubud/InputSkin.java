@@ -1,7 +1,6 @@
 package main.java.com.pixolestudios.tubud;
 
 import main.java.com.pixolestudios.skinUtils.Condition;
-import main.java.com.pixolestudios.skinUtils.Grade;
 import main.java.com.pixolestudios.skinUtils.Skin;
 
 public class InputSkin extends Skin {
@@ -21,5 +20,9 @@ public class InputSkin extends Skin {
     @Override
     public String toString() {
         return super.toString() + " - Condition: " + condition + " - Float: " + floatValue;
+    }
+
+    public float getFloatValue() {
+        return floatValue;
     }
 }
