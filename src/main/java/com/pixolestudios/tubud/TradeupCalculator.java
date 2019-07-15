@@ -17,6 +17,7 @@ import java.util.Map;
 public class TradeupCalculator {
     private Grade outputGrade;
     private float avgFloat;
+    private float inputValue = 0;
     private ArrayList<Skin> outputSkins = new ArrayList<Skin>();
 
     // collection, num occurences
@@ -43,6 +44,7 @@ public class TradeupCalculator {
 
     private void DisplayOutputs() throws NoSkinsFoundException {
         System.out.println("\nAverage input float = " + avgFloat + " - " + Condition.getCondition(avgFloat));
+        System.out.println("Input value ~$" + inputValue);
         if (outputSkins.isEmpty()) {
             throw new NoSkinsFoundException();
         }
@@ -66,6 +68,7 @@ public class TradeupCalculator {
             if (skin.getGrade() != grade) {
                 throw new MixedGradeException();
             }
+            inputValue += skin.getValue(skin.getCondition());
         }
     }
 

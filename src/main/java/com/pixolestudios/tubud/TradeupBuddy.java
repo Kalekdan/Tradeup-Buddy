@@ -5,9 +5,6 @@ import main.java.com.pixolestudios.exceptions.MixedGradeException;
 import main.java.com.pixolestudios.exceptions.NoSkinsFoundException;
 import main.java.com.pixolestudios.skinUtils.Grade;
 import main.java.com.pixolestudios.skinUtils.WeaponCollection;
-import main.java.com.pixolestudios.skins.AK47_FIRE_SERPENT;
-import main.java.com.pixolestudios.skins.Glock18_OFF_WORLD;
-import main.java.com.pixolestudios.skins.Glock18_WARHAWK;
 import main.java.com.pixolestudios.skins.InputSkin;
 import main.java.com.pixolestudios.skins.SkinDBItem;
 
@@ -32,21 +29,15 @@ public class TradeupBuddy {
     }
 
     public static void main(String[] args) {
-        InputSkin skin = new InputSkin(new AK47_FIRE_SERPENT(), 0.04f);
-        InputSkin skin1 = new InputSkin(new AK47_FIRE_SERPENT(), 0.04f);
-        InputSkin skin2 = new InputSkin(new AK47_FIRE_SERPENT(), 0.04f);
-        InputSkin skin3 = new InputSkin(new AK47_FIRE_SERPENT(), 0.04f);
-        InputSkin skin4 = new InputSkin(new AK47_FIRE_SERPENT(), 0.04f);
-        InputSkin skin5 = new InputSkin(new AK47_FIRE_SERPENT(), 0.04f);
-        InputSkin skin6 = new InputSkin(new AK47_FIRE_SERPENT(), 0.04f);
-        InputSkin skin7 = new InputSkin(new Glock18_OFF_WORLD(), 0.04f);
-        InputSkin skin8 = new InputSkin(new Glock18_WARHAWK(), 0.04f);
-        InputSkin skin9 = new InputSkin(new AK47_FIRE_SERPENT(), 0.04f);
+
 
         loadSkinDB();
 
+        InputSkin skin1 = new InputSkin(skinDB.get("UMP-45 | Caramel"), 0.5f);
+        InputSkin skin2 = new InputSkin(skinDB.get("SG 553 | Tornado"), 0.2f);
+
         try {
-            TradeupCalculator tradeup = new TradeupCalculator(skin7, skin7, skin7, skin7, skin8, skin8, skin7, skin8, skin7, skin7);
+            TradeupCalculator tradeup = new TradeupCalculator(skin1, skin1, skin1, skin1, skin2, skin2, skin2, skin2, skin2, skin2);
         } catch (IncorrectInputNumberException incorrectInputNumber) {
             incorrectInputNumber.printStackTrace();
         } catch (MixedGradeException e) {
@@ -71,6 +62,7 @@ public class TradeupBuddy {
                 // Create a new SkinDBItem using the values provided in the .csv
                 getSkinDB().put(vals.get(0), new SkinDBItem(vals.get(0), Float.valueOf(vals.get(1)), Float.valueOf(vals.get(2)), WeaponCollection.valueOf(vals.get(3).toUpperCase(Locale.ENGLISH)), Grade.valueOf(vals.get(4).toUpperCase(Locale.ENGLISH)), Float.valueOf(vals.get(5)), Float.valueOf(vals.get(6)), Float.valueOf(vals.get(7)), Float.valueOf(vals.get(8)), Float.valueOf(vals.get(9)), Float.valueOf(vals.get(10)), Float.valueOf(vals.get(11)), Float.valueOf(vals.get(12)), Float.valueOf(vals.get(13)), Float.valueOf(vals.get(14))));
                 line = reader.readLine();
+                System.out.println(vals.get(0));
             }
             reader.close();
         } catch (FileNotFoundException e) {
