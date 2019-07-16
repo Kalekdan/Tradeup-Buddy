@@ -2,6 +2,8 @@ package main.java.com.pixolestudios.skinUtils;
 
 import main.java.com.pixolestudios.exceptions.InvalidInputGradesException;
 
+import java.util.Random;
+
 /**
  * Enum of all the possible weapon grades
  * Output skins will alwasy be the grade above the inputs
@@ -39,5 +41,17 @@ public enum Grade {
             return COVERT;
         }
         throw new InvalidInputGradesException(inputGrade);
+    }
+
+    public static Grade getRandomGrade() {
+        int randInt = new Random().nextInt(5) + 1;
+        switch (randInt){
+            case 1 : return CLASSIFIED;
+            case 2 : return RESTRICTED;
+            case 3 : return MIL_SPEC;
+            case 4 : return INDUSTRIAL;
+            case 5 : return CONSUMER;
+            default: return null;
+        }
     }
 }

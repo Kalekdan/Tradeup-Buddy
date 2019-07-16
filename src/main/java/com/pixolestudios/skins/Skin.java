@@ -122,4 +122,12 @@ public abstract class Skin {
     public float getValue(Condition condition) {
         return valueMap.get(condition);
     }
+
+    public float getMaxFloat() {
+        return maxFloat;
+    }
+
+    public float getMinFloat() {
+        return minFloat;
+    }
 }
