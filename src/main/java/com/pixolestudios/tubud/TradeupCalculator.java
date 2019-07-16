@@ -46,7 +46,6 @@ public class TradeupCalculator {
      * @throws InvalidInputGradesException   if input grades do not support output
      */
     public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException, InvalidInputGradesException, NoHigherGradeInCollectionException {
-        DisplayInputs(skins);
         checkValidInput(skins);
 
         outputGrade = Grade.nextGrade(skins[0].getGrade());
@@ -54,8 +53,9 @@ public class TradeupCalculator {
         updateInputCollections(skins);
 
         calculateOutputSkins(skins);
-        checkValidOutputs(skins);
         countOutputSkinCollections();
+        checkValidOutputs(skins);
+        DisplayInputs(skins);
         DisplayOutputs();
     }
 
