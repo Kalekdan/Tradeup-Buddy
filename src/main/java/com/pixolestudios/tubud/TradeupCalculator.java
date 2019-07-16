@@ -63,7 +63,7 @@ public class TradeupCalculator {
      */
     private void DisplayInputs(InputSkin[] skins) {
         for (InputSkin skin : skins) {
-            System.out.println(skin.getName() + " (" + skin.getGrade() + ") " + " - " + skin.getFloatValue() + " - " + skin.getCondition() + " ~$" + skin.getValue(skin.getCondition()));
+            System.out.println(skin.getName() + " - (" + skin.getGrade() + ") (" + skin.getCollection() + ") - " + skin.getFloatValue() + " - " + skin.getCondition() + " ~$" + skin.getValue(skin.getCondition()));
         }
     }
 
@@ -81,7 +81,7 @@ public class TradeupCalculator {
         for (Skin skin : outputSkins) {
             float outFloat = skin.getOutputFloat(avgFloat);
             Condition condition = Condition.getCondition(outFloat);
-            System.out.println(skin.getName() + " " + outFloat + " - " + condition + " ~$" + skin.getValue(condition) + " - Chance = " + CalculateProbability(skin) * 100 + "%");
+            System.out.println(skin.getName() + " - (" + skin.getGrade() + ") (" + skin.getCollection() + ") - " + outFloat + " - " + condition + " ~$" + skin.getValue(condition) + " - " + CalculateProbability(skin) * 100 + "%");
             avgOutputValue += CalculateProbability(skin) * skin.getValue(condition);
             if ((skin.getValue(condition) - inputValue) > maxProfit) {
                 maxProfit = skin.getValue(condition) - inputValue;
