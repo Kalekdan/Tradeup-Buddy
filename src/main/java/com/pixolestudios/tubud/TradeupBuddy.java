@@ -40,6 +40,9 @@ public class TradeupBuddy {
         performRandomTradeup();
     }
 
+    /**
+     * Performs a tradeup with a manually provided list of skins and floats
+     */
     private static void performManualTradeup() {
         InputSkin skin1 = new InputSkin(skinDB.get("AK-47 | First Class"), 0.5f);
         InputSkin skin2 = new InputSkin(skinDB.get("AK-47 | Emerald Pinstripe"), 0.2f);
@@ -57,6 +60,9 @@ public class TradeupBuddy {
         }
     }
 
+    /**
+     * Performs a tradeup with a random selection of 10 skins with random floats
+     */
     private static void performRandomTradeup() {
         InputSkin[] randomSkinsArr = getRandomSkinArr();
         try {
@@ -72,6 +78,11 @@ public class TradeupBuddy {
         }
     }
 
+    /**
+     * Returns an array of 10 random skins
+     *
+     * @return InputSkin[] array of 10 random skins and floats
+     */
     private static InputSkin[] getRandomSkinArr() {
         InputSkin[] skinsArr = new InputSkin[10];
         Grade randomGrade = Grade.getRandomGrade();
@@ -83,16 +94,28 @@ public class TradeupBuddy {
         return skinsArr;
     }
 
+    /**
+     * Returns a random float within the range of the max and min floats of the given skin
+     *
+     * @param randomSkin skin to cap float value to
+     * @return random float within max and min range of input skin
+     */
     private static float getRandomFloat(Skin randomSkin) {
         float min = randomSkin.getMinFloat();
         float max = randomSkin.getMaxFloat();
         return min + new Random().nextFloat() * (max - min);
     }
 
+    /**
+     * Returns a random skin at the provided grade. Will keep generating a new random skin until it matches the grade provided
+     *
+     * @param randomGrade the grade for the skin to be
+     * @return a random skin of the given grade
+     */
     private static Skin getRandomSkin(Grade randomGrade) {
         Object[] skinDBArr = skinDB.values().toArray();
         Skin randomSkin = (Skin) skinDBArr[new Random().nextInt(skinDBArr.length)];
-        while (randomSkin.getGrade() != randomGrade){
+        while (randomSkin.getGrade() != randomGrade) {
             randomSkin = (Skin) skinDBArr[new Random().nextInt(skinDBArr.length)];
         }
         return randomSkin;

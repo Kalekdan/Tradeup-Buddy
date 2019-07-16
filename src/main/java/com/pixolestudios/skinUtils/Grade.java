@@ -43,6 +43,10 @@ public enum Grade {
         throw new InvalidInputGradesException(inputGrade);
     }
 
+    /**
+     * Gets a random grade excluding CONTRABAND and COVERT
+     * @return random grade
+     */
     public static Grade getRandomGrade() {
         int randInt = new Random().nextInt(5) + 1;
         switch (randInt){
