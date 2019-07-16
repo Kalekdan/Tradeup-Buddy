@@ -1,6 +1,7 @@
 package main.java.com.pixolestudios.tubud;
 
 import main.java.com.pixolestudios.exceptions.IncorrectInputNumberException;
+import main.java.com.pixolestudios.exceptions.InvalidInputGradesException;
 import main.java.com.pixolestudios.exceptions.MixedGradeException;
 import main.java.com.pixolestudios.exceptions.NoSkinsFoundException;
 import main.java.com.pixolestudios.skinUtils.Condition;
@@ -40,8 +41,9 @@ public class TradeupCalculator {
      * @throws IncorrectInputNumberException if more or less than 10 input skins are provided
      * @throws MixedGradeException           if input skins are not all of the same grade
      * @throws NoSkinsFoundException         if no output skins exist for the given inputs
+     * @throws InvalidInputGradesException   if input grades do not support output
      */
-    public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException {
+    public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException, InvalidInputGradesException {
         DisplayInputs(skins);
         checkValidInput(skins);
 

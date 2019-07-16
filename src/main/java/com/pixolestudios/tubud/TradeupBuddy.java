@@ -1,6 +1,7 @@
 package main.java.com.pixolestudios.tubud;
 
 import main.java.com.pixolestudios.exceptions.IncorrectInputNumberException;
+import main.java.com.pixolestudios.exceptions.InvalidInputGradesException;
 import main.java.com.pixolestudios.exceptions.MixedGradeException;
 import main.java.com.pixolestudios.exceptions.NoSkinsFoundException;
 import main.java.com.pixolestudios.skinUtils.Grade;
@@ -43,6 +44,8 @@ public class TradeupBuddy {
         } catch (MixedGradeException e) {
             e.printStackTrace();
         } catch (NoSkinsFoundException e) {
+            e.printStackTrace();
+        } catch (InvalidInputGradesException e) {
             e.printStackTrace();
         }
     }

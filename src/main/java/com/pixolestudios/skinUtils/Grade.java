@@ -1,5 +1,7 @@
 package main.java.com.pixolestudios.skinUtils;
 
+import main.java.com.pixolestudios.exceptions.InvalidInputGradesException;
+
 /**
  * Enum of all the possible weapon grades
  * Output skins will alwasy be the grade above the inputs
@@ -18,8 +20,9 @@ public enum Grade {
      *
      * @param inputGrade the grade of the input skins
      * @return the next grade i.e. the grade the output skins will be
+     * @throws InvalidInputGradesException if the input grades do not allow output grades (i.e. COVERT/CONTRABAND)
      */
-    public static Grade nextGrade(Grade inputGrade) {
+    public static Grade nextGrade(Grade inputGrade) throws InvalidInputGradesException {
         if (inputGrade == CONSUMER) {
             return INDUSTRIAL;
         }
@@ -35,6 +38,6 @@ public enum Grade {
         if (inputGrade == CLASSIFIED) {
             return COVERT;
         }
-        return null; //TODO may want to throw an error instead
+        throw new InvalidInputGradesException(inputGrade);
     }
 }
