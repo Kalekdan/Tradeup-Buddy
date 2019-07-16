@@ -19,15 +19,20 @@ public class TradeupCalculator {
     private Grade outputGrade;
     private float avgFloat;
     private float inputValue = 0;
+    private float avgOutputValue = 0;
     private ArrayList<Skin> outputSkins = new ArrayList<Skin>();
+
+    private float maxProfit = -999999999;
+    private float minProfit = 999999999;
+    private float avgProfit = 0;
 
     // collection, num occurences
     private HashMap<WeaponCollection, Integer> inputCollections = new HashMap<>();
     private HashMap<WeaponCollection, Integer> outputCollections = new HashMap<>();
 
     public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException {
-        checkValidInput(skins);
         DisplayInputs(skins);
+        checkValidInput(skins);
 
         outputGrade = Grade.nextGrade(skins[0].getGrade());
         avgFloat = calculateOutputFloat(skins);
@@ -40,13 +45,13 @@ public class TradeupCalculator {
 
     private void DisplayInputs(InputSkin[] skins) {
         for (InputSkin skin : skins) {
-            System.out.println(skin.getName() + " " + skin.getFloatValue() + " - " + skin.getCondition());
+            System.out.println(skin.getName() + " (" + skin.getGrade() + ") " + " - " + skin.getFloatValue() + " - " + skin.getCondition() + " ~$" + skin.getValue(skin.getCondition()));
         }
     }
 
     private void DisplayOutputs() throws NoSkinsFoundException {
         System.out.println("\nAverage input float = " + avgFloat + " - " + Condition.getCondition(avgFloat));
-        System.out.println("Input value ~$" + inputValue);
+        System.out.println("Input value ~$" + inputValue + "\n");
         if (outputSkins.isEmpty()) {
             throw new NoSkinsFoundException();
         }
@@ -54,7 +59,19 @@ public class TradeupCalculator {
             float outFloat = skin.getOutputFloat(avgFloat);
             Condition condition = Condition.getCondition(outFloat);
             System.out.println(skin.getName() + " " + outFloat + " - " + condition + " ~$" + skin.getValue(condition) + " - Chance = " + CalculateProbability(skin) * 100 + "%");
+            avgOutputValue += CalculateProbability(skin) * skin.getValue(condition);
+            if ((skin.getValue(condition) - inputValue) > maxProfit) {
+                maxProfit = skin.getValue(condition) - inputValue;
+            }
+            if ((skin.getValue(condition) - inputValue) < minProfit) {
+                minProfit = skin.getValue(condition) - inputValue;
+            }
         }
+        System.out.println("\nAverage output value = ~$" + avgOutputValue);
+        System.out.println("\nMax profit = " + maxProfit);
+        System.out.println("Min profit = " + minProfit);
+        avgProfit = avgOutputValue - inputValue;
+        System.out.println("Average profit = " + avgProfit);
     }
 
     private float CalculateProbability(Skin skin) {
@@ -110,5 +127,9 @@ public class TradeupCalculator {
                 outputCollections.put(skin.getCollection(), 1);
             }
         }
+    }
+
+    public float getAvgProfit() {
+        return avgProfit;
     }
 }

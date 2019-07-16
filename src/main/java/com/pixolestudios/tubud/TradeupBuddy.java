@@ -33,8 +33,8 @@ public class TradeupBuddy {
 
         loadSkinDB();
 
-        InputSkin skin1 = new InputSkin(skinDB.get("UMP-45 | Caramel"), 0.5f);
-        InputSkin skin2 = new InputSkin(skinDB.get("SG 553 | Tornado"), 0.2f);
+        InputSkin skin1 = new InputSkin(skinDB.get("AK-47 | First Class"), 0.5f);
+        InputSkin skin2 = new InputSkin(skinDB.get("AK-47 | Emerald Pinstripe"), 0.2f);
 
         try {
             TradeupCalculator tradeup = new TradeupCalculator(skin1, skin1, skin1, skin1, skin2, skin2, skin2, skin2, skin2, skin2);
@@ -62,7 +62,6 @@ public class TradeupBuddy {
                 // Create a new SkinDBItem using the values provided in the .csv
                 getSkinDB().put(vals.get(0), new SkinDBItem(vals.get(0), Float.valueOf(vals.get(1)), Float.valueOf(vals.get(2)), WeaponCollection.valueOf(vals.get(3).toUpperCase(Locale.ENGLISH)), Grade.valueOf(vals.get(4).toUpperCase(Locale.ENGLISH)), Float.valueOf(vals.get(5)), Float.valueOf(vals.get(6)), Float.valueOf(vals.get(7)), Float.valueOf(vals.get(8)), Float.valueOf(vals.get(9)), Float.valueOf(vals.get(10)), Float.valueOf(vals.get(11)), Float.valueOf(vals.get(12)), Float.valueOf(vals.get(13)), Float.valueOf(vals.get(14))));
                 line = reader.readLine();
-                System.out.println(vals.get(0));
             }
             reader.close();
         } catch (FileNotFoundException e) {
