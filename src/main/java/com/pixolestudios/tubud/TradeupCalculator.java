@@ -3,6 +3,7 @@ package main.java.com.pixolestudios.tubud;
 import main.java.com.pixolestudios.exceptions.IncorrectInputNumberException;
 import main.java.com.pixolestudios.exceptions.InvalidInputGradesException;
 import main.java.com.pixolestudios.exceptions.MixedGradeException;
+import main.java.com.pixolestudios.exceptions.NoHigherGradeInCollectionException;
 import main.java.com.pixolestudios.exceptions.NoSkinsFoundException;
 import main.java.com.pixolestudios.skinUtils.Condition;
 import main.java.com.pixolestudios.skinUtils.Grade;
@@ -44,7 +45,7 @@ public class TradeupCalculator {
      * @throws NoSkinsFoundException         if no output skins exist for the given inputs
      * @throws InvalidInputGradesException   if input grades do not support output
      */
-    public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException, InvalidInputGradesException {
+    public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException, InvalidInputGradesException, NoHigherGradeInCollectionException {
         DisplayInputs(skins);
         checkValidInput(skins);
 
@@ -53,8 +54,17 @@ public class TradeupCalculator {
         updateInputCollections(skins);
 
         calculateOutputSkins(skins);
+        checkValidOutputs(skins);
         countOutputSkinCollections();
         DisplayOutputs();
+    }
+
+    private void checkValidOutputs(InputSkin[] skins) throws NoHigherGradeInCollectionException {
+        for (InputSkin skin : skins) {
+            if (!outputCollections.containsKey(skin.getCollection())) {
+                throw new NoHigherGradeInCollectionException(skin.getCollection(), outputGrade);
+            }
+        }
     }
 
     /**

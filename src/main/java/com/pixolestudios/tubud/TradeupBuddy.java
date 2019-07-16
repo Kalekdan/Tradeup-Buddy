@@ -3,6 +3,7 @@ package main.java.com.pixolestudios.tubud;
 import main.java.com.pixolestudios.exceptions.IncorrectInputNumberException;
 import main.java.com.pixolestudios.exceptions.InvalidInputGradesException;
 import main.java.com.pixolestudios.exceptions.MixedGradeException;
+import main.java.com.pixolestudios.exceptions.NoHigherGradeInCollectionException;
 import main.java.com.pixolestudios.exceptions.NoSkinsFoundException;
 import main.java.com.pixolestudios.skinUtils.Grade;
 import main.java.com.pixolestudios.skinUtils.WeaponCollection;
@@ -57,6 +58,8 @@ public class TradeupBuddy {
             e.printStackTrace();
         } catch (InvalidInputGradesException e) {
             e.printStackTrace();
+        } catch (NoHigherGradeInCollectionException e) {
+            e.printStackTrace();
         }
     }
 
@@ -74,6 +77,8 @@ public class TradeupBuddy {
         } catch (NoSkinsFoundException e) {
             e.printStackTrace();
         } catch (InvalidInputGradesException e) {
+            e.printStackTrace();
+        } catch (NoHigherGradeInCollectionException e) {
             e.printStackTrace();
         }
     }
