@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("MagicNumber")
 public class TradeupCalculator {
     private Grade outputGrade;
     private float avgFloat;
@@ -22,7 +23,7 @@ public class TradeupCalculator {
 
     // collection, num occurences
     private HashMap<WeaponCollection, Integer> inputCollections = new HashMap<>();
-    private float sumOfCollections = 0;
+    private HashMap<WeaponCollection, Integer> outputCollections = new HashMap<>();
 
     public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException {
         checkValidInput(skins);
@@ -33,6 +34,7 @@ public class TradeupCalculator {
         updateInputCollections(skins);
 
         calculateOutputSkins(skins);
+        countOutputSkinCollections();
         DisplayOutputs();
     }
 
@@ -56,7 +58,7 @@ public class TradeupCalculator {
     }
 
     private float CalculateProbability(Skin skin) {
-        return inputCollections.get(skin.getCollection()) / (sumOfCollections * inputCollections.size());
+        return (inputCollections.get(skin.getCollection()) / 10.0f) / outputCollections.get(skin.getCollection());
     }
 
     private void checkValidInput(InputSkin[] skins) throws IncorrectInputNumberException, MixedGradeException {
@@ -87,7 +89,6 @@ public class TradeupCalculator {
             } else {
                 inputCollections.put(skin.getCollection(), 1);
             }
-            sumOfCollections++;
         }
     }
 
@@ -97,6 +98,16 @@ public class TradeupCalculator {
                 if (!outputSkins.contains(skin)) {
                     outputSkins.add(skin.getValue());
                 }
+            }
+        }
+    }
+
+    private void countOutputSkinCollections() {
+        for (Skin skin: outputSkins) {
+            if (outputCollections.containsKey(skin.getCollection())) {
+                outputCollections.put(skin.getCollection(), outputCollections.get(skin.getCollection()) + 1);
+            } else {
+                outputCollections.put(skin.getCollection(), 1);
             }
         }
     }
