@@ -28,6 +28,7 @@ public class TradeupCalculator {
     private float maxProfit = -999999999;       // Maximum possible profit
     private float minProfit = 999999999;        // Minimum possible profit
     private float avgProfit = 0;                // Average profit taking probabilities into account
+    private float chanceForProfit = 0;          // A sum of the probabilities of the outcomes where a profit is made
 
     // Hash Maps which count the number of skins in each collection for the inputs and outputs
     // collection, num occurences
@@ -75,6 +76,8 @@ public class TradeupCalculator {
     private void DisplayOutputs() throws NoSkinsFoundException {
         System.out.println("\nAverage input float = " + avgFloat + " - " + Condition.getCondition(avgFloat));
         System.out.println("Input value ~$" + inputValue + "\n");
+        System.out.println("===========================================================\n");
+
         if (outputSkins.isEmpty()) {
             throw new NoSkinsFoundException();
         }
@@ -83,18 +86,23 @@ public class TradeupCalculator {
             Condition condition = Condition.getCondition(outFloat);
             System.out.println(skin.getName() + " - (" + skin.getGrade() + ") (" + skin.getCollection() + ") - " + outFloat + " - " + condition + " ~$" + skin.getValue(condition) + " - " + CalculateProbability(skin) * 100 + "%");
             avgOutputValue += CalculateProbability(skin) * skin.getValue(condition);
-            if ((skin.getValue(condition) - inputValue) > maxProfit) {
+            if (skin.getValue(condition) - inputValue > 0) { // i.e. profitable outcome
+                chanceForProfit += CalculateProbability(skin);
+            }
+            if ((skin.getValue(condition) - inputValue) > maxProfit) { // profit is higher than previous max profit
                 maxProfit = skin.getValue(condition) - inputValue;
             }
-            if ((skin.getValue(condition) - inputValue) < minProfit) {
+            if ((skin.getValue(condition) - inputValue) < minProfit) { // profit is lower than peviours min profit
                 minProfit = skin.getValue(condition) - inputValue;
             }
         }
+        System.out.println("\n===========================================================");
         System.out.println("\nAverage output value = ~$" + avgOutputValue);
         System.out.println("\nMax profit = " + maxProfit);
         System.out.println("Min profit = " + minProfit);
         avgProfit = avgOutputValue - inputValue;
         System.out.println("Average profit = " + avgProfit);
+        System.out.println("\nChance for profit = " + (chanceForProfit * 100) + "%");
     }
 
     /**
