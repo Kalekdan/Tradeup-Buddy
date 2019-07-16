@@ -16,26 +16,37 @@ import java.util.Map;
 
 @SuppressWarnings("MagicNumber")
 public class TradeupCalculator {
-    private Grade outputGrade;
-    private float avgFloat;
-    private float inputValue = 0;
-    private float avgOutputValue = 0;
+    private Grade outputGrade;          // Grade the output skin will be
+    private float avgFloat;             // Average float of the input skins
+    private float inputValue = 0;       // Total value of the input skins
+    private float avgOutputValue = 0;   // Average value of the output skins
+
+    // Arraylist of all the possible output skins
     private ArrayList<Skin> outputSkins = new ArrayList<Skin>();
 
-    private float maxProfit = -999999999;
-    private float minProfit = 999999999;
-    private float avgProfit = 0;
+    private float maxProfit = -999999999;       // Maximum possible profit
+    private float minProfit = 999999999;        // Minimum possible profit
+    private float avgProfit = 0;                // Average profit taking probabilities into account
 
+    // Hash Maps which count the number of skins in each collection for the inputs and outputs
     // collection, num occurences
     private HashMap<WeaponCollection, Integer> inputCollections = new HashMap<>();
     private HashMap<WeaponCollection, Integer> outputCollections = new HashMap<>();
 
+    /**
+     * The calculator which outputs the possible outcomes of the tradeup
+     *
+     * @param skins takes 10 inputs skins to perform the mock tradeup on
+     * @throws IncorrectInputNumberException if more or less than 10 input skins are provided
+     * @throws MixedGradeException           if input skins are not all of the same grade
+     * @throws NoSkinsFoundException         if no output skins exist for the given inputs
+     */
     public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException {
         DisplayInputs(skins);
         checkValidInput(skins);
 
         outputGrade = Grade.nextGrade(skins[0].getGrade());
-        avgFloat = calculateOutputFloat(skins);
+        avgFloat = calculateAvgFloat(skins);
         updateInputCollections(skins);
 
         calculateOutputSkins(skins);
@@ -43,12 +54,22 @@ public class TradeupCalculator {
         DisplayOutputs();
     }
 
+    /**
+     * Displays the input skins in a format with details about float, value etc.
+     *
+     * @param skins the array of input skins
+     */
     private void DisplayInputs(InputSkin[] skins) {
         for (InputSkin skin : skins) {
             System.out.println(skin.getName() + " (" + skin.getGrade() + ") " + " - " + skin.getFloatValue() + " - " + skin.getCondition() + " ~$" + skin.getValue(skin.getCondition()));
         }
     }
 
+    /**
+     * Displays all the resulting data calculated by the calculator
+     *
+     * @throws NoSkinsFoundException if no output skins exist
+     */
     private void DisplayOutputs() throws NoSkinsFoundException {
         System.out.println("\nAverage input float = " + avgFloat + " - " + Condition.getCondition(avgFloat));
         System.out.println("Input value ~$" + inputValue + "\n");
@@ -74,10 +95,23 @@ public class TradeupCalculator {
         System.out.println("Average profit = " + avgProfit);
     }
 
+    /**
+     * Calculates the probabilty of each of the possible output skins occurring
+     *
+     * @param skin the output skin to get the probability for
+     * @return the probabilty of the given output skin occuring as a decimal
+     */
     private float CalculateProbability(Skin skin) {
         return (inputCollections.get(skin.getCollection()) / 10.0f) / outputCollections.get(skin.getCollection());
     }
 
+    /**
+     * Asserts that the skins provided are valid as inputs
+     *
+     * @param skins the array of input skins
+     * @throws IncorrectInputNumberException if the number of input skins != 10
+     * @throws MixedGradeException           if the input skins are not all of the same grade
+     */
     private void checkValidInput(InputSkin[] skins) throws IncorrectInputNumberException, MixedGradeException {
         if (skins.length != 10) {
             throw new IncorrectInputNumberException(skins.length);
@@ -91,7 +125,13 @@ public class TradeupCalculator {
         }
     }
 
-    private float calculateOutputFloat(InputSkin[] skins) {
+    /**
+     * returns the average float of the input skins
+     *
+     * @param skins the array of input skins
+     * @return the average float of the input skins
+     */
+    private float calculateAvgFloat(InputSkin[] skins) {
         float avg = 0;
         for (InputSkin skin : skins) {
             avg += skin.getFloatValue();
@@ -99,6 +139,11 @@ public class TradeupCalculator {
         return avg / 10;
     }
 
+    /**
+     * Updates the inputCollections HashMap with the collections given in the inputs and the number of occurences of each
+     *
+     * @param skins the array of input skins
+     */
     private void updateInputCollections(InputSkin[] skins) {
         for (InputSkin skin : skins) {
             if (inputCollections.containsKey(skin.getCollection())) {
@@ -109,6 +154,11 @@ public class TradeupCalculator {
         }
     }
 
+    /**
+     * Updates the output skins ArrayList with all the possible outcomes which match the collections of the inputs and the output grade
+     *
+     * @param skins the array of input skins
+     */
     private void calculateOutputSkins(InputSkin[] skins) {
         for (Map.Entry<String, SkinDBItem> skin : TradeupBuddy.getSkinDB().entrySet()) {
             if (inputCollections.containsKey(skin.getValue().getCollection()) && skin.getValue().getGrade() == outputGrade) {
@@ -119,8 +169,11 @@ public class TradeupCalculator {
         }
     }
 
+    /**
+     * Updates the outputCollections HashMap with the collections of the output skins and the number of output skins in each
+     */
     private void countOutputSkinCollections() {
-        for (Skin skin: outputSkins) {
+        for (Skin skin : outputSkins) {
             if (outputCollections.containsKey(skin.getCollection())) {
                 outputCollections.put(skin.getCollection(), outputCollections.get(skin.getCollection()) + 1);
             } else {
@@ -129,6 +182,11 @@ public class TradeupCalculator {
         }
     }
 
+    /**
+     * Retursn the average profit as calculated by the TradeupCalculator
+     *
+     * @return the average profit
+     */
     public float getAvgProfit() {
         return avgProfit;
     }

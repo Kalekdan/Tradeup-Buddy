@@ -20,8 +20,10 @@ import java.util.Locale;
 @SuppressWarnings("MagicNumber")
 public class TradeupBuddy {
 
+    // The location of the skinsdb.csv which contains all the data about the skins
     private static String skindbpath = "data/skinsdb.csv";
 
+    // The skins HashMap database which is loaded from the .csv
     // name, skin
     private static HashMap<String, SkinDBItem> skinDB = new HashMap<>();
 
@@ -29,8 +31,6 @@ public class TradeupBuddy {
     }
 
     public static void main(String[] args) {
-
-
         loadSkinDB();
 
         InputSkin skin1 = new InputSkin(skinDB.get("AK-47 | First Class"), 0.5f);
@@ -45,7 +45,6 @@ public class TradeupBuddy {
         } catch (NoSkinsFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -71,6 +70,11 @@ public class TradeupBuddy {
         }
     }
 
+    /**
+     * Gets the skin DB as calculated from the file
+     *
+     * @return the skinDB HashMap
+     */
     public static HashMap<String, SkinDBItem> getSkinDB() {
         return skinDB;
     }

@@ -1,5 +1,8 @@
 package main.java.com.pixolestudios.skinUtils;
 
+/**
+ * Enum of all the possible weapon conditions levels
+ */
 @SuppressWarnings("MagicNumber")
 public enum Condition {
     FACTORY_NEW,
@@ -8,6 +11,12 @@ public enum Condition {
     WELL_WORN,
     BATTLE_SCARRED;
 
+    /**
+     * Returns the condition the skin would be given the float value
+     *
+     * @param floatValue the float value of the skin
+     * @return the corresponding condition given the float
+     */
     public static Condition getCondition(float floatValue) {
         if (floatValue <= 0.07) {
             return FACTORY_NEW;

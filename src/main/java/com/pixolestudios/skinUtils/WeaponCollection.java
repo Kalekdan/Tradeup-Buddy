@@ -1,9 +1,10 @@
 package main.java.com.pixolestudios.skinUtils;
 
+/**
+ * Enum of all the possible weapon collections
+ */
 public enum WeaponCollection {
-
     // DATA FROM https://csgoitems.pro/en/collections/all
-
     PRISMA,
     DANGER_ZONE,
     BLACKSITE,
