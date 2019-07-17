@@ -117,7 +117,9 @@ public class TradeupCalculator {
         System.out.println("Min profit = " + minProfit);
         avgProfit = avgOutputValue - inputValue;
         System.out.println("Average profit = " + avgProfit);
-        System.out.println("\nChance for profit = " + (chanceForProfit * 100) + "%");
+        System.out.println("\n|=======================================|");
+        System.out.println("|\t\tChance for profit = " + String.format("%.02f", chanceForProfit * 100) + "%\t\t|");
+        System.out.println("|=======================================|\n");
     }
 
     /**
