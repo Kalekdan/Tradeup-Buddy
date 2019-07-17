@@ -32,6 +32,11 @@ public class TradeupBuddy {
     // name, skin
     private static HashMap<String, SkinDBItem> skinDB = new HashMap<>();
 
+    // The desired chance for profit on the tradeup - new random tradeups will be generated until this is met
+    private static final float desiredChanceForProfit = 0.6f;
+    // Maximum number of tradeups to attempt before stopping - if set to zero, will continue until manually stopped
+    private static final int maxTradeupsToPerform = 0;
+
     private TradeupBuddy() {
     }
 
@@ -39,18 +44,28 @@ public class TradeupBuddy {
         loadSkinDB();
 
 //        performManualTradeup();
-        performRandomTradeup();
+
+        float profitChance = performRandomTradeup();
+
+        int counter = 1;
+        while (profitChance <= desiredChanceForProfit && counter != maxTradeupsToPerform) {
+            profitChance = performRandomTradeup();
+            counter++;
+        }
     }
 
     /**
      * Performs a tradeup with a manually provided list of skins and floats
+     *
+     * @return the chance for the tradeup to turn a profit
      */
-    private static void performManualTradeup() {
+    private static float performManualTradeup() {
         InputSkin skin1 = new InputSkin(skinDB.get("AK-47 | First Class"), 0.5f);
         InputSkin skin2 = new InputSkin(skinDB.get("AK-47 | Emerald Pinstripe"), 0.2f);
 
         try {
             TradeupCalculator tradeup = new TradeupCalculator(skin1, skin1, skin1, skin1, skin2, skin2, skin2, skin2, skin2, skin2);
+            return tradeup.getChanceForProfit();
         } catch (IncorrectInputNumberException incorrectInputNumber) {
             incorrectInputNumber.printStackTrace();
         } catch (MixedGradeException e) {
@@ -62,15 +77,19 @@ public class TradeupBuddy {
         } catch (NoHigherGradeInCollectionException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
     /**
      * Performs a tradeup with a random selection of 10 skins with random floats
+     *
+     * @return the chance for the tradeup to turn a profit
      */
-    private static void performRandomTradeup() {
+    private static float performRandomTradeup() {
         InputSkin[] randomSkinsArr = getRandomSkinArr();
         try {
             TradeupCalculator randomTradeup = new TradeupCalculator(randomSkinsArr[0], randomSkinsArr[1], randomSkinsArr[2], randomSkinsArr[3], randomSkinsArr[4], randomSkinsArr[5], randomSkinsArr[6], randomSkinsArr[7], randomSkinsArr[8], randomSkinsArr[9]);
+            return randomTradeup.getChanceForProfit();
         } catch (IncorrectInputNumberException e) {
             e.printStackTrace();
         } catch (MixedGradeException e) {
@@ -82,6 +101,7 @@ public class TradeupBuddy {
         } catch (NoHigherGradeInCollectionException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
     /**
@@ -132,6 +152,13 @@ public class TradeupBuddy {
         return randomSkin;
     }
 
+    /**
+     * Checks that a skin of the output grade exists in the input collection before performing a tradeup
+     *
+     * @param outputGrade the grade the output skin will be
+     * @param collection  the collection to check
+     * @return true if a possible output skin exists
+     */
     private static boolean possibleOutputSkinExists(Grade outputGrade, WeaponCollection collection) {
         for (Map.Entry<String, SkinDBItem> skinEntry : skinDB.entrySet()) {
             if (skinEntry.getValue().getGrade() == outputGrade && skinEntry.getValue().getCollection() == collection) {

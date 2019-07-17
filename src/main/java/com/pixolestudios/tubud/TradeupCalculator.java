@@ -59,6 +59,11 @@ public class TradeupCalculator {
         DisplayOutputs();
     }
 
+    /**
+     * Checks that the output skins are valid and that there is at least 1 skin from each of the input collections
+     * @param skins the array of input skins
+     * @throws NoHigherGradeInCollectionException should never be thrown as should get caught on inputs
+     */
     private void checkValidOutputs(InputSkin[] skins) throws NoHigherGradeInCollectionException {
         for (InputSkin skin : skins) {
             if (!outputCollections.containsKey(skin.getCollection())) {
@@ -209,5 +214,14 @@ public class TradeupCalculator {
      */
     public float getAvgProfit() {
         return avgProfit;
+    }
+
+    /**
+     * Returns the probabilty that the tradeup will return a profit
+     *
+     * @return the chance to return a profit
+     */
+    public float getChanceForProfit() {
+        return chanceForProfit;
     }
 }
