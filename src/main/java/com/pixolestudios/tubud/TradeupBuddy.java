@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 @SuppressWarnings("MagicNumber")
@@ -92,7 +93,12 @@ public class TradeupBuddy {
         InputSkin[] skinsArr = new InputSkin[10];
         Grade randomGrade = Grade.getRandomGrade();
         for (int i = 0; i < 10; i++) {
-            Skin randomSkin = getRandomSkin(randomGrade);
+            Skin randomSkin = null;
+            try {
+                randomSkin = getRandomSkin(randomGrade);
+            } catch (InvalidInputGradesException e) {
+                e.printStackTrace();
+            }
             float randomFloat = getRandomFloat(randomSkin);
             skinsArr[i] = new InputSkin(randomSkin, randomFloat);
         }
@@ -117,13 +123,22 @@ public class TradeupBuddy {
      * @param randomGrade the grade for the skin to be
      * @return a random skin of the given grade
      */
-    private static Skin getRandomSkin(Grade randomGrade) {
+    private static Skin getRandomSkin(Grade randomGrade) throws InvalidInputGradesException {
         Object[] skinDBArr = skinDB.values().toArray();
         Skin randomSkin = (Skin) skinDBArr[new Random().nextInt(skinDBArr.length)];
-        while (randomSkin.getGrade() != randomGrade) {
+        while (!possibleOutputSkinExists(Grade.nextGrade(randomGrade), randomSkin.getCollection()) || randomSkin.getGrade() != randomGrade) {
             randomSkin = (Skin) skinDBArr[new Random().nextInt(skinDBArr.length)];
         }
         return randomSkin;
+    }
+
+    private static boolean possibleOutputSkinExists(Grade outputGrade, WeaponCollection collection) {
+        for (Map.Entry<String, SkinDBItem> skinEntry : skinDB.entrySet()) {
+            if (skinEntry.getValue().getGrade() == outputGrade && skinEntry.getValue().getCollection() == collection) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
