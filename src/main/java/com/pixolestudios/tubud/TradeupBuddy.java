@@ -5,6 +5,7 @@ import main.java.com.pixolestudios.exceptions.InvalidInputGradesException;
 import main.java.com.pixolestudios.exceptions.MixedGradeException;
 import main.java.com.pixolestudios.exceptions.NoHigherGradeInCollectionException;
 import main.java.com.pixolestudios.exceptions.NoSkinsFoundException;
+import main.java.com.pixolestudios.skinUtils.Condition;
 import main.java.com.pixolestudios.skinUtils.Grade;
 import main.java.com.pixolestudios.skinUtils.WeaponCollection;
 import main.java.com.pixolestudios.skins.InputSkin;
@@ -86,7 +87,7 @@ public class TradeupBuddy {
      * @return the chance for the tradeup to turn a profit
      */
     private static float performRandomTradeup() {
-        InputSkin[] randomSkinsArr = getRandomSkinArr();
+        InputSkin[] randomSkinsArr = getRandomSkinArr(true);
         try {
             TradeupCalculator randomTradeup = new TradeupCalculator(randomSkinsArr[0], randomSkinsArr[1], randomSkinsArr[2], randomSkinsArr[3], randomSkinsArr[4], randomSkinsArr[5], randomSkinsArr[6], randomSkinsArr[7], randomSkinsArr[8], randomSkinsArr[9]);
             return randomTradeup.getChanceForProfit();
@@ -107,9 +108,10 @@ public class TradeupBuddy {
     /**
      * Returns an array of 10 random skins
      *
+     * @param requireKnownMarketValue if true, will not use skins where the db does not have a market value for the float level
      * @return InputSkin[] array of 10 random skins and floats
      */
-    private static InputSkin[] getRandomSkinArr() {
+    private static InputSkin[] getRandomSkinArr(boolean requireKnownMarketValue) {
         InputSkin[] skinsArr = new InputSkin[10];
         Grade randomGrade = Grade.getRandomGrade();
         for (int i = 0; i < 10; i++) {
@@ -120,6 +122,9 @@ public class TradeupBuddy {
                 e.printStackTrace();
             }
             float randomFloat = getRandomFloat(randomSkin);
+            while (randomSkin.getValue(Condition.getCondition(randomFloat)) == 0.0f && requireKnownMarketValue) {
+                randomFloat = getRandomFloat(randomSkin);
+            }
             skinsArr[i] = new InputSkin(randomSkin, randomFloat);
         }
         return skinsArr;
