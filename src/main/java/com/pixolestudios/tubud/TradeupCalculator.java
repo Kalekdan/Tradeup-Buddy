@@ -12,6 +12,9 @@ import main.java.com.pixolestudios.skins.InputSkin;
 import main.java.com.pixolestudios.skins.Skin;
 import main.java.com.pixolestudios.skins.SkinDBItem;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +39,11 @@ public class TradeupCalculator {
     private HashMap<WeaponCollection, Integer> inputCollections = new HashMap<>();
     private HashMap<WeaponCollection, Integer> outputCollections = new HashMap<>();
 
+    private InputSkin[] inputSkins = new InputSkin[10];
+    private String exportFileLoc = "export/tradeups.csv";
+
+    private static boolean firstLineOfExport = true;
+
     /**
      * The calculator which outputs the possible outcomes of the tradeup
      *
@@ -47,7 +55,7 @@ public class TradeupCalculator {
      */
     public TradeupCalculator(InputSkin... skins) throws IncorrectInputNumberException, MixedGradeException, NoSkinsFoundException, InvalidInputGradesException, NoHigherGradeInCollectionException {
         checkValidInput(skins);
-
+        inputSkins = skins;
         outputGrade = Grade.nextGrade(skins[0].getGrade());
         avgFloat = calculateAvgFloat(skins);
         updateInputCollections(skins);
@@ -225,5 +233,44 @@ public class TradeupCalculator {
      */
     public float getChanceForProfit() {
         return chanceForProfit;
+    }
+
+    public void addTradeupToExportFile(){
+        File exportFile = new File(exportFileLoc);
+        exportFile.getParentFile().mkdirs();
+        FileWriter writer = null;
+        try {
+            if (firstLineOfExport){
+                firstLineOfExport = false;
+                writer = new FileWriter(exportFile, false);
+                writer.write(firstLineOfExportFile());
+                writer.close();
+            }
+            writer = new FileWriter(exportFile, true);
+            writer.write(createOutputString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String firstLineOfExportFile(){
+        return "inputSkin1Name,float,condition,value,inputSkin2Name,float,condition,value,inputSkin3Name,float,condition,value,inputSkin4Name,float,condition,value,inputSkin5Name,float,condition,value,inputSkin6Name,float,condition,value,inputSkin7Name,float,condition,value,inputSkin8Name,float,condition,value,inputSkin9Name,float,condition,value,inputSkin10Name,float,condition,value,avgOutputValue,maxProfit,minProfit,avgProfit,chanceForProfit\n";
+    }
+
+    private String createOutputString(){
+        StringBuilder toReturn = new StringBuilder();
+        for (InputSkin skin: inputSkins) {
+            toReturn.append(skin.getName()).append(",");
+            toReturn.append(skin.getFloatValue()).append(",");
+            toReturn.append(skin.getCondition()).append(",");
+            toReturn.append(skin.getValue(skin.getCondition())).append(",");
+        }
+        toReturn.append(avgOutputValue).append(",");
+        toReturn.append(maxProfit).append(",");
+        toReturn.append(minProfit).append(",");
+        toReturn.append(avgProfit).append(",");
+        toReturn.append(chanceForProfit);
+        return toReturn.toString() + "\n";
     }
 }

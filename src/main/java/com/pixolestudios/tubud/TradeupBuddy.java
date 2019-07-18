@@ -57,12 +57,13 @@ public class TradeupBuddy {
         TradeupCalculator tradeup = performRandomTradeup();
         float profitChance = tradeup.getChanceForProfit();
         float avgProfit = tradeup.getAvgProfit();
-
+        tradeup.addTradeupToExportFile();
         int counter = 1;
         while ((profitChance <= desiredChanceForProfit || avgProfit <= desiredMinAvgProfit) && counter != maxTradeupsToPerform) {
             tradeup = performRandomTradeup();
             profitChance = tradeup.getChanceForProfit();
             avgProfit = tradeup.getAvgProfit();
+            tradeup.addTradeupToExportFile();
             counter++;
         }
     }
