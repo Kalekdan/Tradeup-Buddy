@@ -26,19 +26,26 @@ import java.util.Random;
 @SuppressWarnings("MagicNumber")
 public class TradeupBuddy {
 
+    // PARAMETERS AND TARGETS FOR RUNNING TRADEUPS
+    // TWEAK THESE TO AFFECT THE OUTPUTS
+
+    // The desired chance for profit on the tradeup - new random tradeups will be generated until this is met
+    private static final float desiredChanceForProfit = 0.0f;
+    // The desired average profit on the tradeup - new random tradeups will be generated until this is met
+    private static final float desiredMinAvgProfit = 0.7f;
+    // Maximum number of tradeups to attempt before stopping - if set to zero, will continue until manually stopped
+    private static final int maxTradeupsToPerform = 0;
+    // With this flag set, will not perform tradeups using items where the market value is not known
+    private static final boolean REQUIRE_KNOWN_MARKET_VALUE = true;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // The location of the skinsdb.csv which contains all the data about the skins
     private static String skindbpath = "data/skinsdb.csv";
 
     // The skins HashMap database which is loaded from the .csv
     // name, skin
     private static HashMap<String, SkinDBItem> skinDB = new HashMap<>();
-
-    // The desired chance for profit on the tradeup - new random tradeups will be generated until this is met
-    private static final float desiredChanceForProfit = 0.5f;
-    // The desired average profit on the tradeup - new random tradeups will be generated until this is met
-    private static final float desiredMinAvgProfit = -999999;
-    // Maximum number of tradeups to attempt before stopping - if set to zero, will continue until manually stopped
-    private static final int maxTradeupsToPerform = 0;
 
     private TradeupBuddy() {
     }
@@ -92,7 +99,7 @@ public class TradeupBuddy {
      * @return the chance for the tradeup to turn a profit
      */
     private static TradeupCalculator performRandomTradeup() {
-        InputSkin[] randomSkinsArr = getRandomSkinArr(true);
+        InputSkin[] randomSkinsArr = getRandomSkinArr(REQUIRE_KNOWN_MARKET_VALUE);
         try {
             TradeupCalculator randomTradeup = new TradeupCalculator(randomSkinsArr[0], randomSkinsArr[1], randomSkinsArr[2], randomSkinsArr[3], randomSkinsArr[4], randomSkinsArr[5], randomSkinsArr[6], randomSkinsArr[7], randomSkinsArr[8], randomSkinsArr[9]);
             return randomTradeup;
