@@ -30,11 +30,11 @@ public class TradeupBuddy {
     // TWEAK THESE TO AFFECT THE OUTPUTS
 
     // The desired chance for profit on the tradeup - new random tradeups will be generated until this is met
-    private static final float desiredChanceForProfit = 0.0f;
+    private static final float desiredChanceForProfit = 0.5f;
     // The desired average profit on the tradeup - new random tradeups will be generated until this is met
-    private static final float desiredMinAvgProfit = 0.7f;
+    private static final float desiredMinAvgProfit = -999.9f;
     // Maximum number of tradeups to attempt before stopping - if set to zero, will continue until manually stopped
-    private static final int maxTradeupsToPerform = 0;
+    private static final int maxTradeupsToPerform = 200000;
     // With this flag set, will not perform tradeups using items where the market value is not known
     private static final boolean REQUIRE_KNOWN_MARKET_VALUE = true;
 
@@ -57,12 +57,11 @@ public class TradeupBuddy {
         TradeupCalculator tradeup = performRandomTradeup();
         float profitChance = tradeup.getChanceForProfit();
         float avgProfit = tradeup.getAvgProfit();
-        tradeup.addTradeupToExportFile();
         if (profitChance >= desiredChanceForProfit && avgProfit >= desiredMinAvgProfit) {
             tradeup.addTradeupToExportFile();
         }
         int counter = 1;
-        while ((profitChance <= desiredChanceForProfit || avgProfit <= desiredMinAvgProfit) && counter != maxTradeupsToPerform) {
+        while (counter != maxTradeupsToPerform) {
             tradeup = performRandomTradeup();
             profitChance = tradeup.getChanceForProfit();
             avgProfit = tradeup.getAvgProfit();
